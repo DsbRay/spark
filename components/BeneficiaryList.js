@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import trashIcon from "../images/trash-icon.svg";
 import Image from "next/image";
-const BeneficiaryList = ({ data }) => {
+
+const BeneficiaryList = ({ data, handleDelete }) => {
   const renderAddedBeneficiaries = () => {
     return data.map((item, i) => {
       return (
@@ -16,7 +17,7 @@ const BeneficiaryList = ({ data }) => {
           <p>
             Email: <span>{item.email}</span>
           </p>
-          <div className="image">
+          <div className="image" onClick={() => handleDelete(item.email)}>
             <Image src={trashIcon} alt="trash icon" />
           </div>
         </Block>
@@ -38,6 +39,7 @@ const Block = styled.div`
   position: relative;
   box-shadow: 3px 3px 11px 2px rgba(30, 73, 118, 0.5);
   background-color: rgb(26 48 70);
+  max-height: 200px;
   p {
     padding-bottom: 10px;
     color: #0059b2;
