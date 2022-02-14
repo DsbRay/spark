@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Link from "next/link";
+
 import BeneficiaryForm from "./BeneficiaryForm";
 import BeneficiaryList from "./BeneficiaryList";
 
@@ -58,6 +60,7 @@ const AddBeneficiaries = () => {
     const { value } = e.target;
     setEmail(value);
   };
+
   return (
     <Container>
       <div>
@@ -68,9 +71,8 @@ const AddBeneficiaries = () => {
           handleNameChange={handleNameChange}
           handleSurnameChange={handleSurnameChange}
           handleEmailChange={handleEmailChange}
-        />
-        {errorMessage && <Error>{errorMessage}</Error>}
-
+        />{" "}
+        {errorMessage && <Error> {errorMessage} </Error>}
         <ButtonContainer>
           <button
             className={list.length >= 5 ? "disabled" : ""}
@@ -81,15 +83,18 @@ const AddBeneficiaries = () => {
             &#43;
           </button>
           <p>
-            {list.length >= 5 ? "Maximum beneficiaries reached" : "Add new"}
-          </p>
-        </ButtonContainer>
-        <SubmitButton onClick={() => {}}>Submit</SubmitButton>
-      </div>
-      <BeneficiaryList data={list} handleDelete={handleDelete} />
+            {list.length >= 5 ? "Maximum beneficiaries reached" : "Add new"}{" "}
+          </p>{" "}
+        </ButtonContainer>{" "}
+        <SubmitButton className={list.length < 1 ? "disable" : ""}>
+          <Link href="/success">Submit</Link>
+        </SubmitButton>{" "}
+      </div>{" "}
+      <BeneficiaryList data={list} handleDelete={handleDelete} />{" "}
     </Container>
   );
 };
+
 const Container = styled.div`
   display: flex;
   gap: 50px;
@@ -129,22 +134,27 @@ const ButtonContainer = styled.div`
   }
 `;
 
-const SubmitButton = styled.button`
+const SubmitButton = styled.div`
   margin-top: 20px;
-  padding: 10px 30px;
-  background-color: #0059b2;
-  border: none;
-  color: #fff;
-  border-radius: 20px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: opacity 0.25s ease;
   &.disable {
-    opacity: 0.6;
-    pointer-events: none;
+    a {
+      opacity: 0.6;
+      pointer-events: none;
+    }
   }
-  &:hover {
-    opacity: 0.8;
+  a {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #0059b2;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 `;
 export default AddBeneficiaries;
